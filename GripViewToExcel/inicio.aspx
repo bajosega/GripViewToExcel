@@ -1,4 +1,4 @@
-﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="inicio.aspx.vb" Inherits="GripViewaExcel.inicio" %>
+﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="inicio.aspx.vb" Inherits="GripViewToExcel.inicio" %>
 
 <!DOCTYPE html>
 
@@ -31,7 +31,7 @@
                     <br />
                     <br />
                  
-            <asp:Button ID="btnExportar" OnClick="btnExportar_Click" runat="server" Text="Exportar Arreglado" />
+            <asp:Button ID="btnExportar" OnClick="btnExportar_Click" runat="server" Text="Exportar" />
                     <br />
                 </div>
                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="BusinessEntityID" DataSourceID="SqlDataSource1">
