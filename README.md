@@ -6,6 +6,7 @@ La funcion principal detallada abajo , ademas se incluto en el proyecto un updat
 
 Se agrego la el metodo "HttpUtility.HtmlDecode" para evitar que trajera mal algunos caracteres desde la grilla . 
 
+<code>
 Protected Sub ExportExcel(ByVal nameReport As String, ByVal wControl As GridView)
         Dim dt As DataTable = New DataTable("Hoja1")
 
@@ -37,3 +38,4 @@ Protected Sub ExportExcel(ByVal nameReport As String, ByVal wControl As GridView
             End Using
         End Using
     End Sub
+    </code>
