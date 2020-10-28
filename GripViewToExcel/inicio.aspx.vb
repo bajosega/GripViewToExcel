@@ -6,17 +6,29 @@ Public Class inicio
 
     Protected Sub ExportExcel(ByVal nameReport As String, ByVal wControl As GridView)
         Dim dt As DataTable = New DataTable("Hoja1")
+        Dim i As Integer
 
-        For i As Integer = 0 To wControl.Columns.Count - 1
-            dt.Columns.Add(Trim(wControl.Columns(i).HeaderText))
+        ' Crear Columnas 
+        For i = 0 To wControl.Columns.Count - 1
+            dt.Columns.Add(HttpUtility.HtmlDecode(Trim(wControl.Columns(i).HeaderText)))
         Next
+        ' Pasar los datos 
 
-        For i As Integer = 0 To wControl.Rows.Count - 1
+        For i = 0 To wControl.Rows.Count - 1
             dt.Rows.Add()
             For ii As Integer = 0 To wControl.Columns.Count - 1
                 dt.Rows(i)(ii) = HttpUtility.HtmlDecode(Trim(wControl.Rows(i).Cells(ii).Text))
             Next
         Next
+
+        'agregar en caso de que tengan Footer como un row mas . 
+        If (wControl.ShowFooter) Then
+            dt.Rows.Add()
+            For ii As Integer = 0 To wControl.Columns.Count - 1
+                dt.Rows(i)(ii) = HttpUtility.HtmlDecode(Trim(wControl.Columns(ii).FooterText))
+            Next
+        End If
+
 
         Using wb As XLWorkbook = New XLWorkbook()
             wb.Worksheets.Add(dt)

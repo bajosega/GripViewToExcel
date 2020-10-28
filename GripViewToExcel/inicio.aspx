@@ -34,9 +34,9 @@
             <asp:Button ID="btnExportar" OnClick="btnExportar_Click" runat="server" Text="Exportar" />
                     <br />
                 </div>
-                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="BusinessEntityID" DataSourceID="SqlDataSource1">
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="BusinessEntityID" DataSourceID="SqlDataSource1" AllowSorting="True">
                     <Columns>
-                        <asp:BoundField DataField="PersonType" HeaderText="PersonType" SortExpression="PersonType" />
+                        <asp:BoundField DataField="PersonType" HeaderText="PersonType" SortExpression="PersonType" FooterText="PersonType_footer" />
                         <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" HtmlEncode="False" />
                         <asp:BoundField DataField="FirstName" HeaderText="FirstName" SortExpression="FirstName" />
                         <asp:BoundField DataField="MiddleName" HeaderText="MiddleName" SortExpression="MiddleName" />
