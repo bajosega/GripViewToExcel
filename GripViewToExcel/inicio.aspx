@@ -34,24 +34,24 @@
             <asp:Button ID="btnExportar" OnClick="btnExportar_Click" runat="server" Text="Exportar" />
                     <br />
                 </div>
-                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="BusinessEntityID" DataSourceID="SqlDataSource1" AllowSorting="True">
+                <asp:GridView ID="GridView1" runat="server" DataKeyNames="BusinessEntityID" DataSourceID="SqlDataSource1" AllowSorting="True" AutoGenerateColumns="False">
                     <Columns>
-                        <asp:BoundField DataField="PersonType" HeaderText="PersonType" SortExpression="PersonType" FooterText="PersonType_footer" />
-                        <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" HtmlEncode="False" />
+                        <asp:BoundField DataField="BusinessEntityID" HeaderText="BusinessEntityID" SortExpression="BusinessEntityID" ReadOnly="True" />
+                        <asp:BoundField DataField="PersonType" HeaderText="PersonType" SortExpression="PersonType" />
+                        <asp:CheckBoxField DataField="NameStyle" HeaderText="NameStyle" SortExpression="NameStyle" />
+                        <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
                         <asp:BoundField DataField="FirstName" HeaderText="FirstName" SortExpression="FirstName" />
                         <asp:BoundField DataField="MiddleName" HeaderText="MiddleName" SortExpression="MiddleName" />
-                        <asp:BoundField DataField="LastName" HeaderText="LastName" SortExpression="LastName1" AccessibleHeaderText="Apellido" />
+                        <asp:BoundField DataField="LastName" HeaderText="LastName" SortExpression="LastName" />
+                        <asp:BoundField DataField="Suffix" HeaderText="Suffix" SortExpression="Suffix" />
+                        <asp:BoundField DataField="EmailPromotion" HeaderText="EmailPromotion" SortExpression="EmailPromotion" />
+                        <asp:BoundField DataField="AdditionalContactInfo" HeaderText="AdditionalContactInfo" SortExpression="AdditionalContactInfo" />
+                        <asp:BoundField DataField="Demographics" HeaderText="Demographics" SortExpression="Demographics" />
+                        <asp:BoundField DataField="ModifiedDate" HeaderText="ModifiedDate" SortExpression="ModifiedDate" />
                     </Columns>
                 </asp:GridView>
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:AdventureWorks2019ConnectionString %>" SelectCommand="/****** Script para el comando SelectTopNRows de SSMS  ******/
-                                    SELECT TOP (1000) [BusinessEntityID]
-                                          ,[PersonType]
-                                          ,[Title]
-                                          ,[FirstName]
-                                          ,[MiddleName]
-                                          ,[LastName]
-                                          ,[Suffix]
-                                          ,[EmailPromotion]
+                                    SELECT TOP (1000) *
                                      FROM [AdventureWorks2019].[Person].[Person]"></asp:SqlDataSource>
 
             </ContentTemplate>

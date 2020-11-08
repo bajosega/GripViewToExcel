@@ -1,0 +1,53 @@
+
+    Public Sub GridViewToExcel(GridView1 As GridView, ByVal nameReport As String)
+
+        Dim sb As New StringBuilder()
+        Dim sw As New StringWriter(sb)
+        Dim htw As New HtmlTextWriter(sw)
+        Dim page As New Page()
+        Dim form As New HtmlForm()
+        nameReport = Replace(nameReport, "/", "", 1)
+        nameReport = Replace(nameReport, " ", "", 1)
+        Response.Clear()
+        Response.Buffer = True
+        ' Response.Charset = ""
+        Response.Charset = "UTF-8"
+        Response.ContentType = "application/vnd.ms-excel"
+        ' Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        Response.AddHeader("content-disposition", "attachment;filename=" & nameReport & ".xls")
+
+        GridView1.EnableViewState = False
+        page.EnableEventValidation = False
+        page.DesignerInitialize()
+        page.Controls.Add(form)
+
+        GridView1.HeaderRow.BackColor = Color.White
+
+        For Each cell As TableCell In GridView1.HeaderRow.Cells
+            cell.BackColor = GridView1.HeaderStyle.BackColor
+            'cell.BackColor = Color.Gray
+        Next
+
+        For Each row As GridViewRow In GridView1.Rows
+            row.BackColor = Color.White
+            For Each cell As TableCell In row.Cells
+                If row.RowIndex Mod 2 = 0 Then
+                    cell.BackColor = GridView1.AlternatingRowStyle.BackColor
+                Else
+                    cell.BackColor = GridView1.RowStyle.BackColor
+                End If
+                cell.CssClass = "textmode"
+            Next
+        Next
+
+        form.Controls.Add(GridView1)
+        page.RenderControl(htw)
+
+        Dim style As String = "<style> .textmode { } </style>"
+        Response.Write(style)
+        Response.Output.Write(sw.ToString())
+        Response.Flush()
+        Response.[End]()
+
+    End Sub
+
