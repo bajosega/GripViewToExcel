@@ -5,7 +5,7 @@ Imports Microsoft.Build.Framework.XamlTypes
 Public Class inicio
     Inherits System.Web.UI.Page
 
-    Protected Sub DatatableToExportExcel(ByVal nameReport As String, ByVal tabla As DataTable)
+    Protected Sub DatatableToExcel(ByVal nameReport As String, ByVal tabla As DataTable)
 
         Using wb As XLWorkbook = New XLWorkbook()
             wb.Worksheets.Add(tabla)
