@@ -33,53 +33,49 @@ Public Class inicio
     ''' </summary>
     ''' <param name="nameReport">Nobre para el archivo creado (colocar sin la extencion)</param>
     ''' <param name="wControl">GripView a exportar</param>
-    ''' <param name="ds">Data Source del GripView a exportar</param>
     ''' 
     ''' <remarks>Retorna un Archivo Excel para la Descarga</remarks>
-    Protected Sub GripViewToExcel(ByVal nameReport As String, ByVal wControl As GridView, ds As SqlDataSource)
-
-        Dim dt As DataTable = New DataTable("Hoja1")
-        Dim dt1 = New DataTable()
+    Protected Sub GripViewToExcel(ByVal nameReport As String, ByVal wControl As GridView)
         Dim i As Integer
-        Dim dato As String
-        Dim dv = New DataView()
-
-        'https://docs.microsoft.com/en-us/dotnet/api/system.data.datacolumn.datatype?view=netframework-4.5.2
-
-        dv = ds.Select(DataSourceSelectArguments.Empty)
-        dt1 = dv.ToTable() ' se usa la tabla para obtener el tipo de dato de la columna 
-
-        ' Crear Columnas 
-        For i = 0 To wControl.Columns.Count - 1
-            dt.Columns.Add(HttpUtility.HtmlDecode(Trim(wControl.Columns(i).HeaderText))).DataType = dt1.Columns(wControl.Columns(i).SortExpression ).DataType
-        Next
-
-        ' Pasar los datos 
-        For i = 0 To wControl.Rows.Count - 1
-            dt.Rows.Add()
-            For ii As Integer = 0 To wControl.Columns.Count - 1
-                dato = Trim(wControl.Rows(i).Cells(ii).Text)
-                If (dato <> "") Then
-                    dt.Rows(i)(ii) = HttpUtility.HtmlDecode(dato)
-                End If
-            Next
-        Next
-
-        ''agregar en caso de que tengan Footer como un row mas. 
-        'If (wControl.ShowFooter) Then
-        '    dt.Rows.Add()
-        '    For ii As Integer = 0 To wControl.Columns.Count - 1
-        '        dt.Rows(i)(ii) = HttpUtility.HtmlDecode(Trim(wControl.Columns(ii).FooterText))
-        '    Next
-        'End If
-
+        Dim ii As Integer
 
         Using wb As XLWorkbook = New XLWorkbook()
-            wb.Worksheets.Add(dt)
+
+            Dim ws As IXLWorksheet = wb.Worksheets.Add("Hoja 1")
+            Dim dato As String
+
+            ''https://docs.microsoft.com/en-us/dotnet/api/system.data.datacolumn.datatype?view=netframework-4.5.2
+
+
+            ' Crear Columnas 
+            For i = 0 To wControl.Columns.Count - 1
+                If wControl.Columns(i).Visible Then
+                    ws.Cell(1, i + 1).Value = HttpUtility.HtmlDecode(wControl.Columns(i).HeaderText.Trim)
+                End If
+            Next
+
+            For i = 1 To wControl.Rows.Count - 1
+                For ii = 0 To wControl.Columns.Count - 1
+                    If wControl.Columns(ii).Visible Then
+                        dato = Trim(wControl.Rows(i - 1).Cells(ii).Text)
+                        If (dato <> "") Then
+                            ws.Cell(i + 1, ii + 1).Value = HttpUtility.HtmlDecode(dato)
+                        End If
+                    End If
+                Next
+            Next
+
+            ''agregar en caso de que tengan Footer como un row mas. 
+            If (wControl.ShowFooter) Then
+                For ii = 0 To wControl.Columns.Count - 1
+                    If wControl.Columns(ii).Visible Then
+                        ws.Cell(i + 2, ii + 1).Value = HttpUtility.HtmlDecode(wControl.Columns(ii).HeaderText.Trim)
+                    End If
+                Next
+            End If
+
             Response.Clear()
             Response.Buffer = True
-            'Response.Charset = ""
-            'Response.Charset = "UTF-8"
             Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             Response.AddHeader("content-disposition", "attachment;filename=" & nameReport & ".xlsx")
 
@@ -93,6 +89,6 @@ Public Class inicio
     End Sub
 
     Protected Sub btnExportar_Click(sender As Object, e As EventArgs) Handles btnExportar.Click
-        GripViewToExcel("reporte", GridView1, SqlDataSource1)
+        GripViewToExcel("reporte", GridView1)
     End Sub
 End Class

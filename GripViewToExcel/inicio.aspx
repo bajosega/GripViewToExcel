@@ -34,18 +34,14 @@
             <asp:Button ID="btnExportar" OnClick="btnExportar_Click" runat="server" Text="Exportar" />
                     <br />
                 </div>
-                <asp:GridView ID="GridView1" runat="server" DataKeyNames="BusinessEntityID" DataSourceID="SqlDataSource1" AllowSorting="True" AutoGenerateColumns="False">
+                <asp:GridView ID="GridView1" runat="server" DataKeyNames="BusinessEntityID" DataSourceID="SqlDataSource1" AllowSorting="True" AutoGenerateColumns="False" AllowPaging="True" ShowFooter="True">
                     <Columns>
                         <asp:BoundField DataField="BusinessEntityID" HeaderText="BusinessEntityID" SortExpression="BusinessEntityID" ReadOnly="True" />
                         <asp:BoundField DataField="PersonType" HeaderText="PersonType" SortExpression="PersonType" />
                         <asp:CheckBoxField DataField="NameStyle" HeaderText="NameStyle" SortExpression="NameStyle" />
                         <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
-                        <asp:BoundField DataField="FirstName" HeaderText="FirstName" SortExpression="FirstName" />
-                        <asp:BoundField DataField="MiddleName" HeaderText="MiddleName" SortExpression="MiddleName" />
+                        <asp:BoundField DataField="FirstName" HeaderText="FirstName" SortExpression="FirstName" Visible="False" />
                         <asp:BoundField DataField="LastName" HeaderText="LastName" SortExpression="LastName" />
-                        <asp:BoundField DataField="Suffix" HeaderText="Suffix" SortExpression="Suffix" />
-                        <asp:BoundField DataField="EmailPromotion" HeaderText="EmailPromotion" SortExpression="EmailPromotion" />
-                        <asp:BoundField DataField="AdditionalContactInfo" HeaderText="AdditionalContactInfo" SortExpression="AdditionalContactInfo" />
                         <asp:BoundField DataField="Demographics" HeaderText="Demographics" SortExpression="Demographics" />
                         <asp:BoundField DataField="ModifiedDate" HeaderText="ModifiedDate" SortExpression="ModifiedDate" />
                     </Columns>
