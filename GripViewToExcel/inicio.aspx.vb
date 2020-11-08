@@ -5,7 +5,6 @@ Imports Microsoft.Build.Framework.XamlTypes
 Public Class inicio
     Inherits System.Web.UI.Page
 
-
     Protected Sub DatatableToExportExcel(ByVal nameReport As String, ByVal tabla As DataTable)
 
         Using wb As XLWorkbook = New XLWorkbook()
@@ -52,7 +51,7 @@ Public Class inicio
 
         ' Crear Columnas 
         For i = 0 To wControl.Columns.Count - 1
-            dt.Columns.Add(HttpUtility.HtmlDecode(Trim(wControl.Columns(i).HeaderText))).DataType = dt1.Columns(wControl.Columns(i).SortExpression).DataType
+            dt.Columns.Add(HttpUtility.HtmlDecode(Trim(wControl.Columns(i).HeaderText))).DataType = dt1.Columns(wControl.Columns(i).SortExpression ).DataType
         Next
 
         ' Pasar los datos 
@@ -66,13 +65,13 @@ Public Class inicio
             Next
         Next
 
-        'agregar en caso de que tengan Footer como un row mas. 
-        If (wControl.ShowFooter) Then
-            dt.Rows.Add()
-            For ii As Integer = 0 To wControl.Columns.Count - 1
-                dt.Rows(i)(ii) = HttpUtility.HtmlDecode(Trim(wControl.Columns(ii).FooterText))
-            Next
-        End If
+        ''agregar en caso de que tengan Footer como un row mas. 
+        'If (wControl.ShowFooter) Then
+        '    dt.Rows.Add()
+        '    For ii As Integer = 0 To wControl.Columns.Count - 1
+        '        dt.Rows(i)(ii) = HttpUtility.HtmlDecode(Trim(wControl.Columns(ii).FooterText))
+        '    Next
+        'End If
 
 
         Using wb As XLWorkbook = New XLWorkbook()
@@ -93,29 +92,7 @@ Public Class inicio
         End Using
     End Sub
 
-
-
     Protected Sub btnExportar_Click(sender As Object, e As EventArgs) Handles btnExportar.Click
-
-        'Dim defColumnas(1) As String
-        ''defColumnas(0) = "System.Int32"
-        'Dim dv = New DataView()
-        'Dim dt = New DataTable()
-
-        'como ocultar un dato ? 
-
-        'dv = SqlDataSource1.Select(DataSourceSelectArguments.Empty)
-
-        'dv = GridView1.DataSource
-
-        'dt = dv.ToTable()
-
-        ''para eliminar una columna que no quiero que se muestre 
-        'dt.Columns().RemoveAt(10)
-        ''DatatableToExportExcel("Exportado", dt)
-
         GripViewToExcel("reporte", GridView1, SqlDataSource1)
-
-
     End Sub
 End Class
