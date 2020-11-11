@@ -54,7 +54,7 @@ Public Class inicio
                 End If
             Next
 
-            For i = 1 To wControl.Rows.Count - 1
+            For i = 1 To wControl.Rows.Count
                 For ii = 0 To wControl.Columns.Count - 1
                     If wControl.Columns(ii).Visible Then
                         dato = Trim(wControl.Rows(i - 1).Cells(ii).Text)
