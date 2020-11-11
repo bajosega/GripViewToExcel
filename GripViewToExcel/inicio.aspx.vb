@@ -46,8 +46,6 @@ Public Class inicio
             Dim ws As IXLWorksheet = wb.Worksheets.Add("Hoja 1")
             Dim dato As String
 
-            ''https://docs.microsoft.com/en-us/dotnet/api/system.data.datacolumn.datatype?view=netframework-4.5.2
-
             column = 1
             ' Crear Columnas 
             For i = 0 To wControl.Columns.Count - 1
