@@ -69,7 +69,7 @@ Public Class inicio
             If (wControl.ShowFooter) Then
                 For ii = 0 To wControl.Columns.Count - 1
                     If wControl.Columns(ii).Visible Then
-                        ws.Cell(i + 2, ii + 1).Value = HttpUtility.HtmlDecode(wControl.Columns(ii).HeaderText.Trim)
+                        ws.Cell(i + 2, ii + 1).Value = HttpUtility.HtmlDecode(wControl.Columns(ii).FooterText.Trim)
                     End If
                 Next
             End If
