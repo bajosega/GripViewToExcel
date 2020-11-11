@@ -38,6 +38,8 @@ Public Class inicio
     Protected Sub GripViewToExcel(ByVal nameReport As String, ByVal wControl As GridView)
         Dim i As Integer
         Dim ii As Integer
+        Dim column As Integer
+
 
         Using wb As XLWorkbook = New XLWorkbook()
 
@@ -46,30 +48,35 @@ Public Class inicio
 
             ''https://docs.microsoft.com/en-us/dotnet/api/system.data.datacolumn.datatype?view=netframework-4.5.2
 
-
+            column = 1
             ' Crear Columnas 
             For i = 0 To wControl.Columns.Count - 1
                 If wControl.Columns(i).Visible Then
-                    ws.Cell(1, i + 1).Value = HttpUtility.HtmlDecode(wControl.Columns(i).HeaderText.Trim)
+                    ws.Cell(1, column).Value = HttpUtility.HtmlDecode(wControl.Columns(i).HeaderText.Trim)
+                    column += 1
                 End If
             Next
 
             For i = 1 To wControl.Rows.Count
+                column = 1
                 For ii = 0 To wControl.Columns.Count - 1
                     If wControl.Columns(ii).Visible Then
                         dato = Trim(wControl.Rows(i - 1).Cells(ii).Text)
                         If (dato <> "") Then
-                            ws.Cell(i + 1, ii + 1).Value = HttpUtility.HtmlDecode(dato)
+                            ws.Cell(i + 1, column).Value = HttpUtility.HtmlDecode(dato)
                         End If
+                        column += 1
                     End If
                 Next
             Next
 
             ''agregar en caso de que tengan Footer como un row mas. 
             If (wControl.ShowFooter) Then
+                column = 1
                 For ii = 0 To wControl.Columns.Count - 1
                     If wControl.Columns(ii).Visible Then
-                        ws.Cell(i + 2, ii + 1).Value = HttpUtility.HtmlDecode(wControl.Columns(ii).FooterText.Trim)
+                        ws.Cell(i + 2, column).Value = HttpUtility.HtmlDecode(wControl.Columns(ii).FooterText.Trim)
+                        column += 1
                     End If
                 Next
             End If
